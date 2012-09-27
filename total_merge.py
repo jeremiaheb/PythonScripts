@@ -17,9 +17,9 @@ script_path = sys.path [0] + '/'
 			
 mergeDir = script_path
 
-proofingDate = '09012012'
+proofingDate = '10012012'
 
-computerName = 'spree'
+computerName = 'LOF_'
 
 ###Delete contents of the _Data folder if it exists
 if os.path.exists(mergeDir + '_Data'):
@@ -34,12 +34,12 @@ cleanDiverNames = [line.strip().split('~')[1] for line in open(mergeDir + 'diver
 
 ### Create Sample,Species,Substrate folder (if not already created) and drop them in the _Data directory
 
-if not os.path.exists(mergeDir + '_Data/Sample'):
-    os.makedirs(mergeDir + '_Data/Sample')
-if not os.path.exists(mergeDir + '_Data/Species'):    
-    os.makedirs(mergeDir + '_Data/Species')
-if not os.path.exists(mergeDir + '_Data/Substrate'):
-    os.makedirs(mergeDir + '_Data/Substrate')
+if not os.path.exists(mergeDir + '_Data/sample'):
+    os.makedirs(mergeDir + '_Data/sample')
+if not os.path.exists(mergeDir + '_Data/species'):    
+    os.makedirs(mergeDir + '_Data/species')
+if not os.path.exists(mergeDir + '_Data/substrate'):
+    os.makedirs(mergeDir + '_Data/substrate')
 if not os.path.exists(mergeDir + '_Data/TotalMerge'):
     os.makedirs(mergeDir + '_Data/TotalMerge')
 
@@ -48,59 +48,62 @@ if not os.path.exists(mergeDir + '_Data/TotalMerge'):
 
 for name in cleanDiverNames:
     if not os.path.exists(mergeDir + '_Data/%s' % name):
-            os.makedirs(mergeDir + '_Data/%s' % name)
+        os.makedirs(mergeDir + '_Data/%s' % name)
 
 ### Merge Sample files
-samplefiles = os.listdir(mergeDir + 'Sample')
+samplefiles = os.listdir(mergeDir + 'sample')
 for file in samplefiles:
-	for name in cleanDiverNames:
-		if name in file:
-			outPutFile = open(mergeDir + '_Data/%s/%s%ssample%s.nsam' % (name,computerName,name,proofingDate),'a')
-			outPutFile2 = open(mergeDir + '_Data/Sample/%s%ssample%s.nsam' % (computerName,name,proofingDate), 'a')
-                        outPutFile3 = open(mergeDir + '_Data/TotalMerge/samplemerge.txt', 'a')                       
-                        linesReadFromFile = open(mergeDir + 'Sample/%s' % file,'r').read()
-			outPutFile.write(linesReadFromFile)
-			outPutFile2.write(linesReadFromFile)
-                        outPutFile3.write(linesReadFromFile)
-			outPutFile.close()
-			outPutFile2.close()
-                        outPutFile3.close()
+    for name in cleanDiverNames:
+        if name in file:
+            outPutFile = open(mergeDir + '_Data/%s/%s%ssample%s.nsam' % (name,computerName,name,proofingDate),'a')
+            outPutFile2 = open(mergeDir + '_Data/sample/%s%ssample%s.nsam' % (computerName,name,proofingDate), 'a')
+            outPutFile3 = open(mergeDir + '_Data/TotalMerge/samplemerge.txt', 'a')                       
+            linesReadFromFile = [line for line in open(mergeDir + 'sample/%s' % file,'r').readlines() if line.strip()]
+            formattedLines = "".join(line for line in linesReadFromFile)
+            outPutFile.write(formattedLines)
+            outPutFile2.write(formattedLines)
+            outPutFile3.write(formattedLines)
+            outPutFile.close()
+            outPutFile2.close()
+            outPutFile3.close()
 
 
 ##Merge Species files
 
-speciesfiles = os.listdir(mergeDir + 'Species')
+speciesfiles = os.listdir(mergeDir + 'species')
 for file in speciesfiles:
-	for name in cleanDiverNames:
-		if name in file:
-			outPutFile = open(mergeDir + '_Data/%s/%s%sspecies%s.nspe' % (name,computerName,name,proofingDate),'a')
-			outPutFile2 = open(mergeDir + '_Data/Species/%s%sspecies%s.nspe' % (computerName,name,proofingDate), 'a')
-                        outPutFile3 = open(mergeDir + '_Data/TotalMerge/speciesmerge.txt', 'a')
-			linesReadFromFile = open(mergeDir + 'Species/%s' % file,'r').read()
-                        outPutFile.write(linesReadFromFile)
-			outPutFile2.write(linesReadFromFile)
-                        outPutFile3.write(linesReadFromFile)
-			outPutFile.close()
-			outPutFile2.close()
-			outPutFile3.close()
+    for name in cleanDiverNames:
+        if name in file:
+            outPutFile = open(mergeDir + '_Data/%s/%s%sspecies%s.nspe' % (name,computerName,name,proofingDate),'a')
+            outPutFile2 = open(mergeDir + '_Data/species/%s%sspecies%s.nspe' % (computerName,name,proofingDate), 'a')
+            outPutFile3 = open(mergeDir + '_Data/TotalMerge/speciesmerge.txt', 'a')
+            linesReadFromFile = [line for line in open(mergeDir + 'species/%s' % file,'r').readlines() if line.strip()]
+            formattedLines = "".join(line for line in linesReadFromFile)
+            outPutFile.write(formattedLines)
+            outPutFile2.write(formattedLines)
+            outPutFile3.write(formattedLines)
+            outPutFile.close()
+            outPutFile2.close()
+            outPutFile3.close()
 
 
 ##Merge Substrate files
 
-substratefiles = os.listdir(mergeDir + 'Substrate')
+substratefiles = os.listdir(mergeDir + 'substrate')
 for file in substratefiles:
-	for name in cleanDiverNames:
-		if name in file:
-			outPutFile = open(mergeDir + '_Data/%s/%s%ssubstrate%s.nsub' % (name,computerName,name,proofingDate),'a')
-			outPutFile2 = open(mergeDir + '_Data/Substrate/%s%ssubstrate%s.nsub' % (computerName,name,proofingDate), 'a')
-                        outPutFile3 = open(mergeDir + '_Data/TotalMerge/substratemerge.txt', 'a')
-			linesReadFromFile = open(mergeDir + 'Substrate/%s' % file,'r').read()
-                        outPutFile.write(linesReadFromFile)
-			outPutFile2.write(linesReadFromFile)
-			outPutFile3.write(linesReadFromFile)
-			outPutFile.close()
-			outPutFile2.close()
-			outPutFile3.close()
+    for name in cleanDiverNames:
+        if name in file:
+            outPutFile = open(mergeDir + '_Data/%s/%s%ssubstrate%s.nsub' % (name,computerName,name,proofingDate),'a')
+            outPutFile2 = open(mergeDir + '_Data/substrate/%s%ssubstrate%s.nsub' % (computerName,name,proofingDate), 'a')
+            outPutFile3 = open(mergeDir + '_Data/TotalMerge/substratemerge.txt', 'a')
+            linesReadFromFile = [line for line in open(mergeDir + 'substrate/%s' % file,'r').readlines() if line.strip()]
+            formattedLines = "".join(line for line in linesReadFromFile)
+            outPutFile.write(formattedLines)
+            outPutFile2.write(formattedLines)
+            outPutFile3.write(formattedLines)
+            outPutFile.close()
+            outPutFile2.close()
+            outPutFile3.close()
 			
 
 ##Delete Empty Directories
