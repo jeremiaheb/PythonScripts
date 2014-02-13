@@ -4,10 +4,10 @@ from matplotlib.backends.backend_pdf import PdfPages
 import time
 from collections import defaultdict
 
-xls = r'C:\survdesign_workshop\computer_labs\data_mgmt\verify\rvc_species_fk11.xls'
-masterSppxls = r'C:\Users\jblondeau\Documents\RVC\RVC_FK_2011\DRTO_Verify_2011\dt11_verify_zip\species_master_FL.xls'
-sheet = u"species_fk11_corrected"
-outFigure = r'C:\survdesign_workshop\computer_labs\data_mgmt\verify\SppQAQC_Graphs11.pdf'
+xls = r'C:\Users\jblondeau\Desktop\FromKirk\sefcri2013_verify\SEFCRI2013_All_Data.xlsx'
+masterSppxls = r'C:\Users\jblondeau\Desktop\FromKirk\sefcri2013_verify\species_master_FL.xls'
+sheet = u"species_corrected"
+outFigure = r'C:\Users\jblondeau\Desktop\FromKirk\sefcri2013_verify\pdfs\SppQAQC_Graphs09.pdf'
 
 wb = xlrd.open_workbook(xls)
 sppSheet = wb.sheet_by_name(sheet)
@@ -19,12 +19,13 @@ for row in range(1, masterSppSheet.nrows):
     masterSppDict[masterSppSheet.cell_value(row, 0)] = masterSppSheet.cell_value(row, 2), masterSppSheet.cell_value(row, 7)
     
 
-##SpeciesList = sorted(list(set([sppSheet.cell_value(row,1) for row in range(1, sppSheet.nrows)])))
-SpeciesList = ['EPI MORI']
+SpeciesList = sorted(list(set([sppSheet.cell_value(row,1) for row in range(1, sppSheet.nrows)])))
+##SpeciesList = sorted(list(set([sppSheet.cell_value(row,1) for row in range(1, 50)])))
+##SpeciesList = ['EPI MORI']
 
 def SppPlots():
     pp = PdfPages(outFigure)
-    for Species in SpeciesList:
+    for Species in SpeciesList[250:300]:
         sppFilter =[sppSheet.row_values(row, start_colx=0, end_colx=8) for row in range(1, sppSheet.nrows) if sppSheet.cell_value(row, 1)== Species]
         abundList = [line[2] for line in sppFilter]
         meanList = [line[3] for line in sppFilter]

@@ -1,3 +1,4 @@
+
 import math
 from collections import defaultdict
 
@@ -19,7 +20,7 @@ def distBtStns(lat1, lon1, lat2, lon2):
     return 6371000 * (math.atan ( -v / math.sqrt ( -v * v+1 ) ) + 2 * math.atan ( 1 ))
 
 
-coordsFromTextFile = [ line.strip().split() for line in open(r'V:\RVC_Archive\RVC_2011\RVC2011_Verify\actual_latlon_fk11.txt').readlines()]
+coordsFromTextFile = [ line.strip().split() for line in open(r'C:\Users\jblondeau\Desktop\FromKirk\sefcri2013_verify\actual_latlon_sef2013.txt').readlines()]
 
 sampleIDCoordDict = DefaultDict()
 
